@@ -1,0 +1,406 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}aboutpage{% endblock %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block content %}
+<section>
+    <div class="page banner">
+        <div class="bg purple"></div>
+        <div class="ui container">
+            <h1 class="uix header white">L'UPEM · A propos</h1>
+        </div>
+    </div>
+</section>
+
+<section class="py-4">
+    <div class="ui container py-4">
+        <div class="ui stackable two column grid">
+            <div class="column history richtext">
+                {{ page.history|richtext }}
+            </div>
+            <div class="column history image">
+                <!-- <img class="rounded" src="https://source.unsplash.com/random/500x500" alt=""> -->
+                {% image page.quote_image fill-500x500 as img %}
+                <img class="rounded" src="{{ img.url }}" alt="{{ img.alt }}">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="page banner">
+        <div class="filter"></div>
+        <div class="bg">
+            <!-- <img src="/media/demo/bg-about.jpg" alt=""> -->
+            {% image page.quote_image original %}
+        </div>
+        
+        <div class="ui container">
+            <div class="quote big">
+                <div class="left"><i class="icon quote left"></i></div>
+                <blockquote>
+                    <div class="text">
+                        {{ page.quote|richtext }}
+                    </div>
+                    <div class="author">
+                        - <span><i>{{ page.quote_author }}</i></span>
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="beige">
+    <div class="ui container transparent">
+        <h2 class="uix header centered">
+            Nos missions
+            <div class="uix subheader">Vous représenter et vous accompagner</div>
+        </h2>
+    </div>
+</section>
+
+<section>
+    <div class="highlights four py-4">
+        <div class="ui container">
+            <div class="ui stackable four column grid">
+                {% for tile in page.tiles_main.all %}
+                <div class="four wide column">
+                    <div class="tile">
+                        <div class="image">
+                            <i class="{{ tile.icon }}"></i>
+                        </div>
+                        <h1 class="title">{{ tile.title }}</h1>
+                        <div class="content">{{ tile.content }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% comment %}
+                {% if page.tile_schoo_council %}
+                <div class="four wide column">
+                    <div class="tile">
+                        <div class="image">
+                            <!-- <img src="https://source.unsplash.com/random/100" alt=""> -->
+                            <i class="icon child"></i>
+                        </div>
+                        <h1 class="title">Conseil d'école</h1>
+                        <div class="content">{{ page.tile_schoo_council }}</div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if page.tile_class_council %}
+                <div class="four wide column">
+                    <div class="tile">
+                        <div class="image">
+                            <!-- <img src="https://source.unsplash.com/random/100" alt=""> -->
+                            <i class="graduation cap icon"></i>
+                        </div>
+                        <h1 class="title">Conseil de classe</h1>
+                        <div class="content">{{ page.tile_class_council }}</div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if page.tile_admin_council %}
+                <div class="four wide column">
+                    <div class="tile">
+                        <div class="image">
+                            <!-- <img src="https://source.unsplash.com/random/100" alt=""> -->
+                            <i class="icon university"></i>
+                        </div>
+                        <h1 class="title">Conseil d'administration</h1>
+                        <div class="content">{{ page.tile_admin_council }}</div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if page.tile_disci_council %}
+                <div class="four wide column">
+                    <div class="tile">
+                        <div class="image">
+                            <!-- <img src="https://source.unsplash.com/random/100" alt=""> -->
+                            <i class="balance scale icon"></i>
+                        </div>
+                        <h1 class="title">Conseil de discipline</h1>
+                        <div class="content">{{ page.tile_disci_council }}</div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endcomment %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="highlights list bg-green-800">
+        <div class="ui container">
+            <div class="ui stackable two column grid">
+                {% for tile in page.tiles_sub.all %}
+                <div class="column">
+                    <div class="tile">
+                        <div class="image">
+                            <i class="{{ tile.icon }}"></i>
+                        </div>
+                        <div class="right">
+                            <h1 class="title">{{ tile.title }}</h1>
+                            <div class="content">{{ tile.content }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% comment %}
+                {% if page.tile_education %}
+                <div class="column">
+                    <div class="tile">
+                        <div class="image">
+                            <!-- <img src="https://source.unsplash.com/random/50" alt=""> -->
+                            <i class="plus icon"></i>
+                        </div>
+                        <div class="right">
+                            <h1 class="title">Comité éducation santé citoyenneté</h1>
+                            <div class="content">{{ page.tile_education }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if page.tile_cen %}
+                <div class="column">
+                    <div class="tile">
+                        <div class="image">
+                            <!-- <img src="https://source.unsplash.com/random/50" alt=""> -->
+                            <i class="icon info"></i>
+                        </div>
+                        <div class="right">
+                            <h1 class="title">Conseil de l’éducation nationale (CEN)</h1>
+                            <div class="content">{{ page.tile_cen }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if page.tile_languages %}
+                <div class="column">
+                    <div class="tile">
+                        <div class="image">
+                            <!-- <img src="https://source.unsplash.com/random/50" alt=""> -->
+                            <i class="language icon"></i>
+                        </div>
+                        <div class="right">
+                            <h1 class="title">Commission des langues régionales</h1>
+                            <div class="content">{{ page.tile_languages }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if page.tile_scholarships %}
+                <div class="column">
+                    <div class="tile">
+                        <div class="image">
+                            <!-- <img src="https://source.unsplash.com/random/50" alt=""> -->
+                            <i class="american sign language interpreting icon"></i>
+                        </div>
+                        <div class="right">
+                            <h1 class="title">Commission des bourses de l’EN ou autre Ministère</h1>
+                            <div class="content">{{ page.tile_scholarships }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endcomment %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="beige hidden">
+    <div class="ui container transparent">
+        <h2 class="uix header centered">
+            Notre organisation
+            <div class="uix subheader">Les personnalités au coeur du combat</div>
+        </h2>
+    </div>
+</section>
+
+<section class="mb-20 hidden">
+    <div class="ui container">
+        <div id="splide__cards" class="splide organization">
+            <div class="splide__track">
+                <ul class="splide__list ui link cards">
+                    <div class="card splide__slide">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar2/large/matthew.png">
+                        </div>
+                        <div class="content">
+                            <div class="header"><span class="first_name">Gérard</span> <span class="last_name">LAGUERRE</span></div>
+                            <div class="meta president">
+                                <a>Président</a>
+                            </div>
+                            <div class="description hidden">
+                                Matthew is an interior designer living in New York.
+                            </div>
+                        </div>
+                        <div class="extra content hidden">
+                            <span class="right floated">
+                                Joined in 2013
+                            </span>
+                            <span>
+                                <i class="user icon"></i>
+                                75 Friends
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card splide__slide">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar2/large/elyse.png">
+                        </div>
+                        <div class="content">
+                            <div class="header"><span class="first_name">Catherine</span> <span class="last_name">MAYAUD</span></div>
+                            <div class="meta vicepresident">
+                                <a>Vice-présidente</a>
+                            </div>
+                            <div class="description hidden">
+                                Matthew is an interior designer living in New York.
+                            </div>
+                        </div>
+                        <div class="extra content hidden">
+                            <span class="right floated">
+                                Joined in 2013
+                            </span>
+                            <span>
+                                <i class="user icon"></i>
+                                75 Friends
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card splide__slide">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar2/large/matthew.png">
+                        </div>
+                        <div class="content">
+                            <div class="header"><span class="first_name">Joé</span> <span class="last_name">ARNETON</span></div>
+                            <div class="meta administrator">
+                                <a>Trésorier</a>
+                            </div>
+                            <div class="description hidden">
+                                Matthew is an interior designer living in New York.
+                            </div>
+                        </div>
+                        <div class="extra content hidden">
+                            <span class="right floated">
+                                Joined in 2013
+                            </span>
+                            <span>
+                                <i class="user icon"></i>
+                                75 Friends
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card splide__slide">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar2/large/matthew.png">
+                        </div>
+                        <div class="content">
+                            <div class="header"><span class="first_name">Jean-Michel</span> <span class="last_name">MANGATA</span></div>
+                            <div class="meta employee">
+                                <a>Salarié</a>
+                            </div>
+                            <div class="description hidden">
+                                Matthew is an interior designer living in New York.
+                            </div>
+                        </div>
+                        <div class="extra content hidden">
+                            <span class="right floated">
+                                Joined in 2013
+                            </span>
+                            <span>
+                                <i class="user icon"></i>
+                                75 Friends
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card splide__slide">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar2/large/molly.png">
+                        </div>
+                        <div class="content">
+                            <div class="header"><span class="first_name">Marie-Andrée</span> <span class="last_name">Picardon</span></div>
+                            <div class="meta employee">
+                                <a>Salarié</a>
+                            </div>
+                            <div class="description hidden">
+                                Molly is a personal assistant living in Paris.
+                            </div>
+                        </div>
+                        <div class="extra content hidden">
+                            <span class="right floated">
+                                Joined in 2011
+                            </span>
+                            <span>
+                                <i class="user icon"></i>
+                                35 Friends
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card splide__slide">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar2/large/kristy.png">
+                        </div>
+                        <div class="content">
+                            <div class="header"><span class="first_name">Eloïse</span> <span class="last_name">NERO</span></div>
+                            <div class="meta employee">
+                                <a>Salarié</a>
+                            </div>
+                            <div class="description hidden">
+                                Molly is a personal assistant living in Paris.
+                            </div>
+                        </div>
+                        <div class="extra content hidden">
+                            <span class="right floated">
+                                Joined in 2011
+                            </span>
+                            <span>
+                                <i class="user icon"></i>
+                                35 Friends
+                            </span>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div class="splide__progress">
+                <div class="splide__progress__bar">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(function () {
+        var splide__cards = new Splide('#splide__cards', {
+            perPage: 4,
+            type: 'loop',
+            autoplay: true,
+            lazyLoad: true,
+            pauseOnHover: true,
+            pauseOnFocus: true,
+            // heightRatio: 0.5,
+        });
+        
+        splide__cards.mount();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,57 @@
+body.contact .pusher {
+  display: flex;
+  flex-direction: column; }
+
+#Place {
+  height: 100%;
+  min-height: 100%;
+  overflow: auto;
+  background-color: beige;
+  background-color: gainsboro; }
+  @media (max-width: 1024px) {
+    #Place .page.banner {
+      padding: 1rem; }
+      #Place .page.banner .uix.header {
+        font-size: 2.25rem; }
+    #Place .container {
+      width: auto;
+      padding: 0 1rem; } }
+  @media (max-width: 768px) {
+    #Place .page.banner {
+      padding: 1rem; }
+      #Place .page.banner .uix.header {
+        font-size: 1.25rem; } }
+  #Place section.beige {
+    padding-top: 1rem; }
+  #Place .ui.column .column {
+    padding-bottom: 0 !important; }
+  #Place .card {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: white; }
+    #Place .card.map {
+      padding: 0; }
+    #Place .card h2 {
+      padding-bottom: 1rem;
+      color: #065f46;
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase; }
+    #Place .card h3 {
+      padding-top: 0; }
+    #Place .card h4 {
+      margin: .5rem 0;
+      font-size: 1.25rem;
+      font-weight: bold; }
+
+#WhoAreWe .right .icon {
+  opacity: .75;
+  margin-bottom: 7px; }
+
+#WhoAreWe .right .ol-viewport {
+  height: 400px !important; }
+
+/*# sourceMappingURL=contact.css.map */

@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load widget_tweaks wagtailcore_tags widgets_tags %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/contact/contact.css" type="text/css">
+<style>
+.ol-viewport {
+    height: 400px !important;
+}
+</style>
+{% endblock extra_css %}
+
+{% block body_class %}contact{% endblock %}
+
+{% block content %}
+<div id="Place">
+    <section>
+        <div class="page banner">
+            <div class="bg purple"></div>
+            <div class="ui container">
+                <h1 class="uix header white">{{ page.title }}</h1>
+            </div>
+        </div>
+    </section>
+    
+    <section class="beige">
+        <div class="ui container transparent">
+            <div class="ui stackable two column grid">
+                <!-- LEFT SIDE -->
+                <div class="column">
+                    <!-- ANTENNE -->
+                    <div class="card place">
+                        {% place_contact %}
+                    </div>
+                    
+                    <div class="card map">
+                        {% place_maps %}
+                    </div>
+                    <div class="flex flex-col">
+                    </div>
+                </div>
+    
+                <!-- RIGHT SIDE -->
+                <div class="column">
+                    <!-- CONTACT -->
+                    <div class="flex flex-col">
+                        <div class="card intro">
+                            {{ self.intro|richtext }}
+                        </div>
+    
+                        <div class="card form">
+                            <h3 class="w-full mx-auto uix header">Formulaire</h3>
+                    
+                            <form action="{% pageurl page %}" method="POST" class="ui form">
+                                {% csrf_token %}
+                    
+                                {% for field in form %}
+                                <div class="field {% if field.errors %} has-error{% endif %}">
+                                    {% render_field field class="form-control form-control-sm" placeholder=field.label %}
+                    
+                                    {% if field.id_for_label == "id_choix_0" %}
+                                    <div class="mt-1 titlespecify{% if form.errors.choix_autre %} has-error{% endif %}" style=>
+                                        <input class="form-control form-control-sm" type='text' name='choix_autre' placeholder="Specify Title" />
+                                        {{ form.errors.choix_autre }}
+                                    </div>
+                                    {% endif %}
+                    
+                                    {% for error in field.errors %}
+                                    <div class="ui pointing red basic label">
+                                        {{ error }}
+                                      </div>
+                                    {% endfor %}
+                                </div>
+                                {% endfor %}
+                                
+                                <button class="ui button" type="submit">
+                                    Soumettre
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui container transparent">
+            <div class="ui grid two column">
+                <div class="column">
+                    
+                </div>
+    
+                <div class="column">
+                    
+                </div>
+    
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_content %}
+<div class="ui dimmer">
+    <div class="container">
+        <div class="top">
+            <div class="top__controls">
+                <i class="icon times"></i>
+            </div>
+        </div>
+        <div class="main">
+            <div class="main__left"><i class="icon angle left"></i></div>
+            <div class="main__center">
+                <img />
+            </div>
+            <div class="main__right"><i class="icon angle right"></i></div>
+
+
+        </div>
+        <div class="sub">
+            <div class="sub__container">
+                <div class="sub__container__images"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+<script>
+    $(function () {
+        // render ();
+       
+       drawMap ();
+
+       // gallery.init();
+    });
+
+
+
+    /**
+    Function moved to templates/widgets/place_maps_widgets.html
+
+    function drawMap (lat, lon) {
+        // lat = 14.6699989418;
+        // lon = -61.0373777448;
+
+        console.log(lat);
+        console.log(lon);
+
+        var marker = new ol.Feature({
+            geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat]))
+        });
+
+        var layer = new ol.layer.Vector({
+            source: new ol.source.Vector({
+                features: [marker]
+            }),
+            style: new ol.style.Style({
+                image: new ol.style.Icon({
+                    anchor: [0.5, 46],
+                    anchorXUnits: 'fraction',
+                    anchorYUnits: 'pixels',
+                    src: 'https://upeem.org/media/marker_icon.png'
+                })
+            })
+        });
+        
+        map = new ol.Map({
+            target: 'map',
+            renderer: 'canvas',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                }),
+                layer
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([lon, lat]),
+                zoom: 20
+            }) 
+        });
+    }
+    */
+
+</script>
+{% endblock extra_js %}

@@ -1,0 +1,37 @@
+{% extends 'memberships/profile_base.html' %}
+{% load static wagtailcore_tags memberships_tags %}
+
+{% block articles %}
+<article class="schools_list">
+    {% if  school %}
+        <h3 class="uix header">
+            <a href="/admin/snippets/education/school/edit/{{ school.id }}/" target="_blank">
+                {{ school.nom_etablissement }} ({{ school.count }})
+            </a>
+        </h3>
+
+        {% if members %}
+        <a class="ui button inverted green" href="{% pageurl page %}json/{{ school.id }}/" target="_blank">Télécharger (JSON)</a>
+
+        <div class="ui segment" id="list">
+            <div class="ui relaxed divided list big">
+                {% for member in members %}
+                <a class="item" href="/admin/snippets/memberships/member/edit/{{ member.id }}/" target="_blank">
+                    <div class="content">
+                        <div class="header">{{ member.last_name }} {{ member.first_name }}</div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    {% endif %}
+</article>
+{% endblock articles %}
+
+{% block profile_js %}
+<script>
+    $(function () {
+    });
+</script>
+{% endblock %}

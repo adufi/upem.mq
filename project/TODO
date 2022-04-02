@@ -1,0 +1,47 @@
+FAVICON
+#######
+
+HTML
+
+Back
+    Contribution filtering
+    @login_required_view
+
+    AdminMember
+        Filters
+            Contributer ?
+
+Adherant - ajouter année
+Map - marker
+
+MA FAMILLE
+    taille cartes
+    Dropdowns
+
+COTISATION
+    Devant CANDIDATURE dans le menu
+    Image cotisation
+    Envoie mail
+
+CANDIDATURE
+    *Warning* pour désistement  
+
+DOCUMENTS
+    Filtre
+
+
+
+
+
+###################################################
+#################### OK ###########################
+###################################################
+HTML
+    Update menu - responsive
+    Responsive profile
+
+BUGS
+    Vanessa PARENT - Cotisation
+
+ADMIN SCHOOL
+    Filter nom_etablissement

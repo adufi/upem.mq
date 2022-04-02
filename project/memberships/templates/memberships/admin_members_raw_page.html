@@ -1,0 +1,14 @@
+{% load static wagtailcore_tags memberships_tags %}
+
+<html>
+    <title>UPEM - Extraction</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+</html>
+<style>
+    table {
+        width: max-content !important;
+    }
+</style>
+<body>
+    {% admin_members_list %}
+</body>

@@ -1,0 +1,236 @@
+{% extends 'memberships/profile_base.html' %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block articles %}
+<article class="cotisations">
+    <section class="cotisation active">
+        <h2 class="uix header">
+            Cotisations actives
+        </h2>
+
+        <div class="ui link cards">
+            {% if contribution %}
+            <div id="cotisation_{{ contribution.id }}" class="ui fluid card">
+                <div class="image">
+                    <img src="https://semantic-ui.com/images/avatar2/large/matthew.png">
+                </div>
+                <div class="content">
+                    <div class="header">{{ contribution.name }}</div>
+                    <div class="meta">
+                        <a>
+                            {{ contribution.date_start|date:'d/m/Y'|default:'' }}
+                            -
+                            {{ contribution.date_end|date:'d/m/Y'|default:'' }}
+                        </a>
+                    </div>
+                    <div class="description">
+                        {{ contribution.description }}
+                    </div>
+                </div>
+
+                {% comment %}
+                <div class="plans ui cards hidden">
+                    {% for plan in contributions_plans %}
+                        {% if plan.contribution.id == contribution.id %}
+                        <div data-id="{{ plan.id }}" class="card {% if plan.price_bought %}bought{% endif %}">
+                            <div class="content">
+                                <div class="header centered">{{ plan.name }}</div>
+                                <div class="description">
+                                    {{ plan.description }}
+                                </div>
+                            </div>
+                            <a class="ui bottom attached button">
+                                <i class="icon add"></i>
+                                <i class="icon check"></i>
+                                <b class="price">{{ contribution.base_price|add:plan.mod }} €</b>
+                                <b class="date">Acheté le <span>{{ plan.date_bought|date:'d/m/Y H:i'|default:'' }}</span></b>
+                            </a>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endcomment %}
+
+                <div class="payment">
+                    <h3>Paiement BRED VADS</h3>
+                    <a class="ui button" href="#" target="_blank">
+                        Payer
+                    </a>
+                    <div class="icons">
+                        <i class="icon credit outline"></i>
+                        <i class="icon cc visa"></i>
+                        <i class="icon cc mastercard"></i>
+                    </div>
+                </div>
+
+                <div class="footer">
+                    {% if contribution.date_bought %}
+                    <span class="bought">
+                        Acheté le <span>{{ contribution.date_bought|date:'d/m/Y H:i'|default:'' }}</span>
+                    </span>
+
+                    <span>
+                        <a href="facture/{{ contribution.ticket_id }}" 
+                           target="_blank"
+                           class="ui button bill">
+                            <i class="icon paperclip"></i>
+                            Facture
+                        </a>
+                    </span>
+                    {% elif contribution.is_payable %}
+                    <span class="price">
+                        <i class="icon credit outline"></i>
+                        <b>{{ contribution.base_price  }} €</b>
+                    </span>
+                    <span class="">
+                        {% comment %}{{ contribution.plans.all|length }} tarif{{ contribution.plans.all|length|pluralize }}{% endcomment %}
+                        <a href="https://paiement.systempay.fr/vads-site/UNION_DES_PARENTS_D__ELEVES_ET?ctx_mode=TEST&lck_vads_amount={{ contribution.price }}&lck_vads_cust_email={{ user.email }}&lck_vads_ext_info_Informations=?contribution={{ contribution.id }}"
+                           target="_blank"
+                           class="ui button buy">
+                            Acheter
+                        </a>
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div class="ui fluid card">
+                <div class="content">
+                    Aucune cotisation en cours.
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="cotisation past">
+        <h2 class="uix header">
+            Cotisations passées
+        </h2>
+
+        <div class="labels mb-4">
+            {% for contribution in contributions %}
+            <div class="ui label brown">
+                <a href="#cotisation_{{ contribution.id }}">{{ contribution.years }}</a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="ui link cards">
+            {% for contribution in contributions %}
+            <div id="cotisation_{{ contribution.id }}" class="ui fluid card">
+                <div class="image">
+                    <img src="https://semantic-ui.com/images/avatar2/large/matthew.png">
+                </div>
+                <div class="content">
+                    <div class="header">{{ contribution.name }}</div>
+                    <div class="meta">
+                        <a>
+                            {{ contribution.date_start|date:'d/m/Y'|default:'' }}
+                            -
+                            {{ contribution.date_end|date:'d/m/Y'|default:'' }}
+                        </a>
+                    </div>
+                    <div class="description">
+                        {{ contribution.description }}
+                    </div>
+                </div>
+
+                {% comment %}
+                <div class="plans ui cards hidden">
+                    {% for plan in contributions_plans %}
+                        {% if plan.contribution.id == contribution.id %}
+                        <div data-id="{{ plan.id }}" class="card {% if plan.price_bought %}bought{% endif %}">
+                            <div class="content">
+                                <div class="header centered">{{ plan.name }}</div>
+                                <div class="description">
+                                    {{ plan.description }}
+                                </div>
+                            </div>
+                            <a class="ui bottom attached button">
+                                <i class="icon add"></i>
+                                <i class="icon check"></i>
+                                <b class="price">{{ contribution.base_price|add:plan.mod }} €</b>
+                                <b class="date">Acheté le <span>{{ plan.date_bought|date:'d/m/Y H:i'|default:'' }}</span></b>
+                            </a>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endcomment %}
+
+                <div class="payment">
+                    <h3>Paiement BRED VADS</h3>
+                    <a class="ui button" href="#" target="_blank">
+                        Payer
+                    </a>
+                    <div class="icons">
+                        <i class="icon credit outline"></i>
+                        <i class="icon cc visa"></i>
+                        <i class="icon cc mastercard"></i>
+                    </div>
+                </div>
+
+                <div class="footer">
+                    {% if contribution.date_bought %}
+                    <span class="bought">
+                        Acheté le <span>{{ contribution.date_bought|date:'d/m/Y H:i'|default:'' }}</span>
+                    </span>
+
+                    <span>
+                        <a href="facture/{{ contribution.ticket_id }}/" 
+                           target="_blank"
+                           class="ui button bill">
+                            <i class="icon paperclip"></i>
+                            Facture
+                        </a>
+                    </span>
+                    {% elif contribution.is_payable %}
+                    <span class="price">
+                        <i class="icon credit outline"></i>
+                        <b>{{ contribution.base_price  }} €</b>
+                    </span>
+                    <span class="">
+                        {% comment %}{{ contribution.plans.all|length }} tarif{{ contribution.plans.all|length|pluralize }}{% endcomment %}
+                        <a href="https://paiement.systempay.fr/vads-site/UNION_DES_PARENTS_D__ELEVES_ET?ctx_mode=TEST&lck_vads_amount={{ contribution.price }}&lck_vads_cust_email={{ user.email }}&lck_vads_ext_info_Informations=?contribution={{ contribution.id }}"
+                           target="_blank"
+                           class="ui button buy">
+                            Acheter
+                        </a>
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</article>
+{% endblock articles %}
+
+{% block profile_js %}
+<script>
+    $(function () {
+        // document.querySelectorAll('section > .ui.cards .ui.card').forEach(item => {
+        //     item.addEventListener('click', (e) => {
+        //         if (e.target === false) {
+
+        //         }
+
+        //         item.classList.toggle('active');
+        //     });
+
+        //     item
+        //     .querySelectorAll
+        // });
+
+        document.querySelectorAll('.plans.ui.cards .card').forEach(item => {
+            item.addEventListener('click', (e) => {
+                item.classList.toggle('active');
+            });
+
+            item
+            .querySelectorAll
+        });
+    });
+</script>
+{% endblock profile_js %}

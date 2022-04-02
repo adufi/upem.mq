@@ -1,0 +1,24 @@
+{% extends 'memberships/profile_base.html' %}
+{% load memberships_tags %}
+
+{% block articles %}
+<article>
+    <h3 class="uix header">Bonjour, {{ user.member.first_name }} {{ user.member.last_name }}</h3>
+
+    <div class="ui grid">
+        <div class="sixteen wide column">
+            {% contribution_dashboard %}
+        </div>
+    </div>
+    
+    <div class="ui grid two columns">
+        <div class="column">
+            {% family_dashboard %}
+        </div>
+
+        <div class="column">
+            {% application_dashboard %}
+        </div>
+    </div>
+</article>
+{% endblock articles %}

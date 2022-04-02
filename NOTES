@@ -1,0 +1,15 @@
+INSTALLATION
+    "pip install virtualenv"
+    "python -m virtualenv venv"
+    "source venv/bin/activate"
+    -
+    * charger variables environnements * 
+    "source scripts/.ubuntu.sh"
+    -
+    pip install -r requirements.txt
+
+LANCEMENT TERMINAL
+    F1
+        source scripts/run-django.sh
+
+    F2

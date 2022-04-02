@@ -1,0 +1,91 @@
+{% comment %}
+    Required parameters
+        - members
+        - application
+        - contribution
+{% endcomment %}
+
+<section class="list">
+    <table class="ui celled structured table unstackable">
+        <thead>
+            <tr>
+                <th rowspan="2">Noms</th>
+                <th rowspan="2">
+                    Adhérant<br>
+                    {% if contribution %}({{ contribution.years }}){% endif %}
+                </th>
+                <th rowspan="2">Email</th>
+                <th rowspan="2">Téléphones</th>
+                <th colspan="4">Enfants</th>
+            </tr>
+            <tr>
+                <th>Noms</th>
+                <th>Ecoles</th>
+                <th>Classe</th>
+                <th>
+                    Candidat<br>
+                    {% if application %}({{ application.years }}){% endif %}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            {% for child in member.f_children %}
+            <tr>
+                {% if forloop.counter == 1 %}
+                {% with children_length=member.f_children|length %}
+                <td rowspan="{{ children_length }}" class="center aligned">
+                    <a href="/mon-profil/listes-membres/membre/{{ member.id }}/" target="_blank">
+                        <i class="external alternate icon"></i>
+                        {{ member.first_name }} {{ member.last_name }}
+                    </a>
+                </td>
+                <td rowspan="{{ children_length }}" class="center aligned">
+                    {% if member.contribution %}
+                    <div class="ui label green">Oui</div>
+                    {% else %}
+                    <div class="ui label red">Non</div>
+                    {% endif %}
+                </td>
+                <td rowspan="{{ children_length }}" class="center aligned">
+                    {{ member.email }}
+                </td>
+                <td rowspan="{{ children_length }}" class="center aligned">
+                    {% if member.phone_cell %}<i class="phone icon"></i>{{ member.phone_cell }}<br/>{% endif %}
+                    {% if member.phone_home %}<i class="home icon"></i>{{ member.phone_home }}<br/>{% endif %}
+                    {% if member.phone_pro %}<i class="building outline icon"></i>{{ member.phone_pro }}{% endif %}
+                </td>
+                {% endwith %}
+                {% endif %}
+                
+                <td>
+                    <!-- <a href="/mon-profil/listes-membres/enfant/{{ child.id }}/" target="_blank">
+                    </a> -->
+                        {{ child.first_name }} {{ child.last_name }}
+                </td>
+                <td class="center aligned">{{ child.school }}</td>
+                <td class="center aligned">{{ child.grade }}</td>
+                <td>
+                    {% if child.application %}
+                    <div class="ui label green">Oui</div>
+                    {% else %}
+                    <div class="ui label red">Non</div>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+                
+            <tr>
+                <td>{{ member.first_name }} {{ member.last_name }}</td>
+                <td class="center aligned"><div class="ui label red">Non</div></td>
+                
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
